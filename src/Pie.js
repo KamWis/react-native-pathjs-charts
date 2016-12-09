@@ -78,11 +78,11 @@ export default class PieChart extends Component {
     let textStyle = fontAdapt(options.label)
 
     let slices = chart.curves.map( (c, i) => {
-      let fill = this.color(i)
-      let stroke = Colors.darkenColor(fill)
+      let fill = c.item.color ? c.item.color : this.color(i);
+      let stroke = this.props.selectedSlice === c.item.id ? c.item.color : '#ffffff';
       return (
                 <G key={ i } x={x - options.margin.left} y={y - options.margin.top}>
-                    <Path d={c.sector.path.print() } stroke={stroke} fill={fill} fillOpacity={1}  />
+                    <Path d={c.sector.path.print() } stroke={stroke} strokeWidth={this.props.selectedSlice ? 2.5 : 2} fill={fill} fillOpacity={1}  />
                     <G x={options.margin.left} y={options.margin.top}>
                       <Text fontFamily={textStyle.fontFamily}
                             fontSize={textStyle.fontSize}
